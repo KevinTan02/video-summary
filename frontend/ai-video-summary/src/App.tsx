@@ -45,7 +45,7 @@ const App = () => {
     <BrowserRouter>
       <Navbar/>
         <Routes>
-          <Route path="/" element ={<Home />} />
+          <Route path="/home" element ={<Home />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/video/:id" element={<VideoPlayer />} />
         </Routes>
