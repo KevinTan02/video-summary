@@ -6,7 +6,8 @@ const Upload = () => {
     
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.files) {
-            setVideoFile(e.target.files[0]);
+            const file = e.target.files[0];
+            setVideoFile(file);
         }
     }
 
@@ -21,14 +22,22 @@ const Upload = () => {
 
         try{
             setStatus("Uploading...")
-            const response = await fetch("/api/upload", {
-                method: 'POST',
-                body: formData,
+            // todo: set up environment variables so we are not only on localhost
+            // const response = await fetch("http://localhost:8080/api/upload", {
+            //     method: 'POST',
+            //     body: formData,
+            // })
+            const response = await fetch(`http://localhost:8080/greeting?name=${videoFile.name}`, {
+                method: 'GET',
             })
+            console.log('RESPONSE', response)
 
             if(!response.ok){
                 throw new Error("Upload failed")
             }
+
+            const jsonData = await response.json();
+            console.log("JSON Data:", jsonData);
 
             setStatus("Upload successful!")
         } catch (error) {
